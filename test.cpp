@@ -276,8 +276,12 @@ using namespace std;
 int main()
 {
     // ===== Section 2 — Input & Validation =====
-    const int MONTHS_PER_YEAR = 12.0;
+    const int MONTHS_PER_YEAR = 12;  // fixed initializing as double.
     const double ROUND_OFF = 0.01;
+    const int MAX_COLUMNS = 5;
+    const int MAX_DISPLAY_ROWS = 12;
+    const int PROGRESS_BAR_WIDTH = 20;
+    const int PERCENT_DIVISOR = 100;
 
     double loanAmount;
     double annualInterestRate;
@@ -341,7 +345,7 @@ int main()
 
     } while (monthlyPayment <= 0);
 
-    firstMonthInterest = loanAmount * (annualInterestRate / MONTHS_PER_YEAR / 100);
+    firstMonthInterest = loanAmount * (annualInterestRate / MONTHS_PER_YEAR / PERCENT_DIVISOR);
 
     if (monthlyPayment <= firstMonthInterest)
     {
@@ -368,7 +372,7 @@ int main()
     // This loop is used because the number of columns is known already.
     columnCount = 1;
 
-    while (columnCount <= 5)
+    while (columnCount <= MAX_COLUMNS)
     {
         if (columnCount == 1)
         {
@@ -406,9 +410,9 @@ int main()
     {
         // For loop:
         // This loop is used because each display window prints up to 12 rows.
-        for (rowCount = 1; rowCount <= 12 && remainingBalance > 0; rowCount = rowCount + 1)
+        for (rowCount = 1; rowCount <= MAX_DISPLAY_ROWS && remainingBalance > 0; rowCount = rowCount + 1)
         {
-            monthlyInterest = remainingBalance * (annualInterestRate / MONTHS_PER_YEAR / 100);
+            monthlyInterest = remainingBalance * (annualInterestRate / MONTHS_PER_YEAR / PERCENT_DIVISOR);
             principalPayment = monthlyPayment - monthlyInterest;
 
             if (monthlyPayment > remainingBalance + monthlyInterest)
@@ -447,7 +451,7 @@ int main()
 
     while (remainingBalance > 0 && foundMonth == false)
     {
-        monthlyInterest = remainingBalance * (annualInterestRate / MONTHS_PER_YEAR / 100);
+        monthlyInterest = remainingBalance * (annualInterestRate / MONTHS_PER_YEAR / PERCENT_DIVISOR);
         principalPayment = monthlyPayment - monthlyInterest;
 
         if (principalPayment > monthlyInterest)
@@ -476,7 +480,7 @@ int main()
 
     while (remainingBalance > 0)
     {
-        monthlyInterest = remainingBalance * (annualInterestRate / MONTHS_PER_YEAR / 100);
+        monthlyInterest = remainingBalance * (annualInterestRate / MONTHS_PER_YEAR / PERCENT_DIVISOR);
         principalPayment = monthlyPayment - monthlyInterest;
 
 
@@ -514,7 +518,7 @@ int main()
 
         cout << "[";
 
-        for (barCount = 1; barCount <= 20; barCount = barCount + 1)
+        for (barCount = 1; barCount <= PROGRESS_BAR_WIDTH; barCount = barCount + 1)
         {
             if (barCount <= numberOfBars)
             {
